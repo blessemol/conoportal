@@ -1,0 +1,41 @@
+name: FTP Deploy to Server
+
+on:
+  push:
+    branches:
+      - main   # Deploy only when pushing to main branch
+
+jobs:
+  deploy:
+    name: Deploy to FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to FTP Server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          
+          protocol: ftp
+          port: 21
+          local-dir: ./  # deploy everything
+          server-dir: ${{ secrets.FTP_PATH }}
+          
+          exclude: |
+            # EXCLUDE EVERYTHING FIRST
+            **/*
+
+            # ALLOW ONLY THE FOLDERS YOU WANT
+            !application/controllers/**
+            !application/helpers/**
+            !application/models/**
+            !application/views/**
+            !assets/**
+            assets/bower_components/**
+            !application/config/  
+            !application/config/constants.php
