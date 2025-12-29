@@ -40,6 +40,7 @@ class Personal_info extends CI_Controller{
 			$email = strtolower($this->input->post('email'));
 			$dob = $this->input->post('dob');
 			$address = $this->input->post('address');
+			$nin = trim($this->input->post('nin'));
 			if($appno && $lname){
 				//passport upload
 				$config['file_name'] = $appno;
@@ -48,11 +49,11 @@ class Personal_info extends CI_Controller{
 					$ret = $this->upload->data();
 					$path = base_url().str_replace("./", "", $config['upload_path']).$ret['file_name'];
 					$msg = "SPersonal information updated successfully";
-					$data = array('firstname'=>$fname, 'middlename'=>$mname, 'level'=>$level, 'gender'=>$gender, 'phone'=>$phone, 'email'=>$email, 'dob'=>$dob, 'address'=>$address, 'picpath'=>$path);
+					$data = array('firstname'=>$fname, 'middlename'=>$mname, 'level'=>$level, 'gender'=>$gender, 'phone'=>$phone, 'email'=>$email, 'dob'=>$dob, 'address'=>$address, 'nin'=>$nin, 'picpath'=>$path);
 				}
 				else{
 					$msg = "EPersonal information updated successfully, but...<br><strong>".$this->upload->display_errors()."</strong>";
-					$data = array('firstname'=>$fname, 'middlename'=>$mname, 'level'=>$level, 'gender'=>$gender, 'phone'=>$phone, 'email'=>$email, 'dob'=>$dob, 'address'=>$address);
+					$data = array('firstname'=>$fname, 'middlename'=>$mname, 'level'=>$level, 'gender'=>$gender, 'phone'=>$phone, 'email'=>$email, 'dob'=>$dob, 'address'=>$address, 'nin'=>$nin);
 				}
 				$where = array('appno'=>$appno);
 				$this->crud_model->update('student', $data, $where);
