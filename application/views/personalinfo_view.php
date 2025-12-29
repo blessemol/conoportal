@@ -101,10 +101,14 @@ $userdet = $userdet->row_array();
 												<label>LGA</label>
 												<input type="text" class="form-control" name="lga" value="<?php print $userdet['lga']; ?>" readonly >
 											</div>
-											<div class="form-group position-relative col-md-12">
+											<div class="form-group position-relative col-md-6">
 												<label>Address</label>
 												<textarea class="form-control" name="address" required><?php print $userdet['address']; ?></textarea>
 											</div>
+                                            <div class="form-group position-relative col-md-6">
+                                                <label>NIN</label>
+                                                <input type="text" class="form-control" name="nin" value="<?= $userdet['nin']; ?>" required>
+                                            </div>
 											<div class="form-group position-relative col-md-12">
 												<label>Upload Passport (.jpg or .png, max size 500kb)</label>
 												<input type="file" class="form-control" name="userfile">
